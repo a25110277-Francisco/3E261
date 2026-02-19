@@ -1,0 +1,69 @@
+class Mario
+class Luigi
+class PrincesaPeach
+class PrincesaDaisy
+class Toad
+class Yoshi
+class Bowser
+class BowserJr
+class Koopa
+class Goomba
+class Paragoomba
+class Lakitu
+class Spiny
+class PiranhaPlant
+class Boo
+class ShyGuy
+class BobOmb
+class ChainChomp
+class Thwomp
+class HammerBro
+class Blooper
+class CheepCheep
+class BulletBill
+class PowerUp
+class SuperChampiñon
+class FlorDeFuego
+class Estrella
+class Moneda
+class Bloque
+class Tuberia
+
+Personaje <|-- Mario
+Personaje <|-- Luigi
+Personaje <|-- PrincesaPeach
+Personaje <|-- PrincesaDaisy
+Personaje <|-- Toad
+Personaje <|-- Yoshi
+Personaje <|-- Bowser
+Personaje <|-- BowserJr
+
+Enemigo <|-- Koopa
+Enemigo <|-- Goomba
+Enemigo <|-- Paragoomba
+Enemigo <|-- Lakitu
+Enemigo <|-- Spiny
+Enemigo <|-- PiranhaPlant
+Enemigo <|-- Boo
+Enemigo <|-- ShyGuy
+Enemigo <|-- BobOmb
+Enemigo <|-- ChainChomp
+Enemigo <|-- Thwomp
+Enemigo <|-- HammerBro
+Enemigo <|-- Blooper
+Enemigo <|-- CheepCheep
+Enemigo <|-- BulletBill
+
+Mario *-- PowerUp
+Luigi *-- PowerUp
+PowerUp <|-- SuperChampiñon
+PowerUp <|-- FlorDeFuego
+PowerUp <|-- Estrella
+
+Mario o-- Moneda
+Luigi o-- Moneda
+
+Mundo *-- Bloque
+Mundo *-- Tuberia
+Bloque o-- Moneda
+Bloque o-- PowerUp

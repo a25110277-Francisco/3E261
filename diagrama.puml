@@ -1,3 +1,5 @@
+@startuml superMario
+
 class Mario
 class Luigi
 class PrincesaPeach
@@ -22,12 +24,15 @@ class Blooper
 class CheepCheep
 class BulletBill
 class PowerUp
-class SuperChampiñon
+class Champinon
 class FlorDeFuego
 class Estrella
 class Moneda
 class Bloque
 class Tuberia
+
+Entidad <|-- Personaje
+Personaje <|-- Enemigo
 
 Personaje <|-- Mario
 Personaje <|-- Luigi
@@ -54,16 +59,20 @@ Enemigo <|-- Blooper
 Enemigo <|-- CheepCheep
 Enemigo <|-- BulletBill
 
-Mario *-- PowerUp
-Luigi *-- PowerUp
-PowerUp <|-- SuperChampiñon
+Mario "1" *-- "0..1" PowerUp
+Luigi "1" *-- "0..1" PowerUp
+PowerUp <|-- Champinon
 PowerUp <|-- FlorDeFuego
 PowerUp <|-- Estrella
 
-Mario o-- Moneda
-Luigi o-- Moneda
+Mario "1" o-- "0..99" Moneda
+Luigi "1" o-- "0..99" Moneda
 
-Mundo *-- Bloque
-Mundo *-- Tuberia
-Bloque o-- Moneda
-Bloque o-- PowerUp
+Mundo "1" *-- "1..*" Bloque
+Mundo "1" *-- "1..*" Tuberia
+Mundo "1" *-- "0..*" Enemigo
+
+Bloque "1" o-- "1..12" Moneda
+Bloque "1" o-- "0..1" PowerUp
+
+@enduml

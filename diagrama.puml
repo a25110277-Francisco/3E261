@@ -59,20 +59,20 @@ Enemigo <|-- Blooper
 Enemigo <|-- CheepCheep
 Enemigo <|-- BulletBill
 
-Mario "1" *-- "0..1" PowerUp
-Luigi "1" *-- "0..1" PowerUp
+Mario "1" *-- "0..1" PowerUp : puede tener 
+Luigi "1" *-- "0..1" PowerUp : puede tener
 PowerUp <|-- Champinon
 PowerUp <|-- FlorDeFuego
 PowerUp <|-- Estrella
 
-Mario "1" o-- "0..99" Moneda
-Luigi "1" o-- "0..99" Moneda
+Mario "1" o-- "0..99" Moneda : recolecta
+Luigi "1" o-- "0..99" Moneda : recolecta
 
-Mundo "1" *-- "1..*" Bloque
-Mundo "1" *-- "1..*" Tuberia
-Mundo "1" *-- "0..*" Enemigo
+Mundo "1" *-- "1..*" Bloque : contiene
+Mundo "1" *-- "1..*" Tuberia : contiene
+Mundo "1" *-- "0..*" Enemigo : contiene
 
-Bloque "1" o-- "1..12" Moneda
-Bloque "1" o-- "0..1" PowerUp
+Bloque "1" o-- "1..12" Moneda : puede contener
+Bloque "1" o-- "0..1" PowerUp : puede contener
 
 @enduml

@@ -1,12 +1,31 @@
 @startuml superMario
 
 class Usuario
+class Personaje
+class Heroe
+class Enemigo
+class Jefe
+class Item
+
 class Mario
 class Luigi
 class PrincesaPeach
 class PrincesaDaisy
 class Toad
-class Yoshi
+
+class PowerUp
+class Champinon
+class FlorDeFuego
+class Estrella
+class Moneda
+class Bloque
+class Tuberia
+class Item
+
+class Mundo
+class Vida
+class Nivel
+
 class Bowser
 class BowserJr
 class Koopa
@@ -24,27 +43,22 @@ class HammerBro
 class Blooper
 class CheepCheep
 class BulletBill
-class PowerUp
-class Champinon
-class FlorDeFuego
-class Estrella
-class Moneda
-class Bloque
-class Tuberia
-class Item
-class Vida
 
 Entidad <|-- Personaje
 Personaje <|-- Enemigo
+Personaje <|-- Heroe
+Personaje <|-- Jefe
+Item <|-- PowerUp
+Item <|-- Moneda
 
-Personaje <|-- Mario
-Personaje <|-- Luigi
-Personaje <|-- PrincesaPeach
-Personaje <|-- PrincesaDaisy
-Personaje <|-- Toad
-Personaje <|-- Yoshi
-Personaje <|-- Bowser
-Personaje <|-- BowserJr
+Heroe <|-- Mario
+Heroe <|-- Luigi
+Heroe <|-- PrincesaPeach
+Heroe <|-- PrincesaDaisy
+Heroe <|-- Toad
+
+Jefe <|-- Bowser
+Jefe <|-- BowserJr
 
 Enemigo <|-- Koopa
 Enemigo <|-- Goomba
@@ -62,41 +76,77 @@ Enemigo <|-- Blooper
 Enemigo <|-- CheepCheep
 Enemigo <|-- BulletBill
 
-Personaje "1" *-- "0..3" Vida
-Mario "1" *-- "0..1" PowerUp
-Luigi "1" *-- "0..1" PowerUp
 PowerUp <|-- Champinon
 PowerUp <|-- FlorDeFuego
 PowerUp <|-- Estrella
 
-Mario "1" o-- "0..99" Moneda
-Luigi "1" o-- "0..99" Moneda
+Usuario "1" o-- "1" Heroe
 
-Mundo "1" *-- "1..*" Bloque
-Mundo "1" *-- "1..*" Tuberia
-Mundo "1" *-- "0..*" Enemigo
+Enemigo "1" *-- "0..1" Vida
+Jefe "1" *-- "0..3" Vida
+Heroe "1" *-- "0..99" Vida
+
+Heroe "1" *-- "0..1" PowerUp
+
+Heroe "1" o-- "0..99" Moneda
+
+Nivel "1" *-- "1..*" Bloque
+Nivel "1" *-- "1..*" Tuberia
+Nivel "1" *-- "0..*" Enemigo
+Nivel "1" *-- "1" Jefe
+
+Mundo "1" *-- "0..4" Nivel
 
 Bloque "1" o-- "1..12" Moneda
 Bloque "1" o-- "0..1" PowerUp
 
-class Mario{
+class Vida{
+    + perder()
+    + ganar()
+}
+
+class Heroe{
     + Recoger(Item)
 }
 
-class Koopa {
+class Enemigo {
     - Vida vida
     + Morir()
 }
 
 class Bloque{
-    - Item contenido
-    + Item : Explotar()
+    - Item : contenido
+    + golpear()
+    + Item : liberar()
 }
 
-class Goomba{
-    - Vida vida
-    + Morir()
+class Tuberia{
+    + transportar(Personaje)
 }
 
+class Moneda{
+    + sumarPuntos()
+}
+
+class Item{
+    + aplicarEfecto(Personaje)
+}
+
+class PowerUp{
+    + activar(Personaje)
+}
+
+class Enemigo{
+    + atacar()
+}
+
+class Nivel{
+    + iniciarNivel()
+    + finalizarNivel()
+}
+
+class Nivel{
+    + cargar()
+}
 
 @enduml

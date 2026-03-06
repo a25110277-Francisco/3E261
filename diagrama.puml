@@ -1,4 +1,4 @@
-@startuml superMario
+@startuml superMarioBros
 
 class Usuario
 class Personaje
@@ -85,17 +85,19 @@ Usuario "1" o-- "1" Heroe
 Enemigo "1" *-- "0..1" Vida
 Jefe "1" *-- "0..3" Vida
 Heroe "1" *-- "0..99" Vida
+Nivel "1" *-- "1" Heroe
 
 Heroe "1" *-- "0..1" PowerUp
 
 Heroe "1" o-- "0..99" Moneda
+Heroe "1" o-- "1" Tuberia
 
 Nivel "1" *-- "1..*" Bloque
 Nivel "1" *-- "1..*" Tuberia
 Nivel "1" *-- "0..*" Enemigo
 Nivel "1" *-- "1" Jefe
 
-Mundo "1" *-- "0..4" Nivel
+Mundo "1" o-- "0..4" Nivel
 
 Bloque "1" o-- "1..12" Moneda
 Bloque "1" o-- "0..1" PowerUp
@@ -106,6 +108,7 @@ class Vida{
 }
 
 class Heroe{
+    - Vida vida
     + Recoger(Item)
 }
 
@@ -121,11 +124,13 @@ class Bloque{
 }
 
 class Tuberia{
-    + transportar(Personaje)
+    + Nivel : Ingresar(Personaje)
+    - Nivel entrada
+    - Nivel salida
 }
 
 class Moneda{
-    + sumarPuntos()
+    + Puntos : sumarPuntos()
 }
 
 class Item{
@@ -145,8 +150,9 @@ class Nivel{
     + finalizarNivel()
 }
 
-class Nivel{
-    + cargar()
+class Mundo{
+    + iniciarNivel()
+    + avanzarNivel()
 }
 
 @enduml

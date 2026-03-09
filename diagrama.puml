@@ -102,19 +102,42 @@ Mundo "1" o-- "0..4" Nivel
 Bloque "1" o-- "1..12" Moneda
 Bloque "1" o-- "0..1" PowerUp
 
+class Usuario {
+    - Heroe heroe
+    + guardarPartida()
+    + cargarPartida()
+    + seleccionarHeroe(Heroe)
+}
+
 class Vida{
     + perder()
     + ganar()
 }
 
-class Heroe{
+class Personaje{
     - Vida vida
+}
+
+class Heroe{
     + Recoger(Item)
+    - PowerUp poweUp
+    + saltar()
+    + agacharse()
+    + correr()
+    + recoger(Item item)
+    + recibirDano()
+    + entrarTuberia(Tuberia)
 }
 
 class Enemigo {
-    - Vida vida
-    + Morir()
+    + morir()
+    + atacar()
+    + cambiarDireccion()
+}
+
+class Jefe {
+    + usarHabilidadEspecial()
+    + enfurecer()
 }
 
 class Bloque{
@@ -124,7 +147,7 @@ class Bloque{
 }
 
 class Tuberia{
-    + Nivel : Ingresar(Personaje)
+    + Nivel : Ingresar(Heroe)
     - Nivel entrada
     - Nivel salida
 }
@@ -133,16 +156,8 @@ class Moneda{
     + Puntos : sumarPuntos()
 }
 
-class Item{
-    + aplicarEfecto(Personaje)
-}
-
 class PowerUp{
-    + activar(Personaje)
-}
-
-class Enemigo{
-    + atacar()
+    + activar(Heroe)
 }
 
 class Nivel{

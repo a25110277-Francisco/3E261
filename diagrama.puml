@@ -25,6 +25,7 @@ class Item
 class Mundo
 class Vida
 class Nivel
+class Temporizador
 
 class Bowser
 class BowserJr
@@ -95,9 +96,10 @@ Heroe "1" o-- "1" Tuberia
 Nivel "1" *-- "1..*" Bloque
 Nivel "1" *-- "1..*" Tuberia
 Nivel "1" *-- "0..*" Enemigo
-Nivel "1" *-- "1" Jefe
+Nivel *-- Temporizador
 
 Mundo "1" o-- "0..4" Nivel
+Mundo "1" *-- "1" Jefe
 
 Bloque "1" o-- "1..12" Moneda
 Bloque "1" o-- "0..1" PowerUp
@@ -160,14 +162,21 @@ class PowerUp{
     + activar(Heroe)
 }
 
-class Nivel{
-    + iniciarNivel()
-    + finalizarNivel()
-}
-
-class Mundo{
+class Mundo {
     + iniciarNivel()
     + avanzarNivel()
+    + derrotarJefeMundo()
+}
+
+class Nivel {
+    + iniciarNivel()
+    + finalizarNivel()
+    + pausar()
+}
+
+class Temporizador {
+    + iniciar()
+    + detener()
 }
 
 @enduml

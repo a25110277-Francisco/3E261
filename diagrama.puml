@@ -126,8 +126,8 @@ class Personaje{
 
 class Heroe{
     - Tuberia tuberia
-    Item item
-    - PowerUp poweUpp
+    + Item item
+    - PowerUp poweUp
     + saltar()
     + agacharse()
     + correr()
@@ -148,7 +148,7 @@ class Jefe {
 }
 
 class Bloque{
-    - Item : contenido
+    - Item contenido
     + golpear()
     + Item : liberar()
 }

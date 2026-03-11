@@ -26,6 +26,7 @@ class Mundo
 class Vida
 class Nivel
 class Temporizador
+class Segundo
 
 class Bowser
 class BowserJr
@@ -45,7 +46,6 @@ class Blooper
 class CheepCheep
 class BulletBill
 
-Entidad <|-- Personaje
 Personaje <|-- Enemigo
 Personaje <|-- Heroe
 Personaje <|-- Jefe
@@ -92,11 +92,13 @@ Heroe "1" *-- "0..1" PowerUp
 
 Heroe "1" o-- "0..99" Moneda
 Heroe "1" o-- "1" Tuberia
-
+Nivel "1" *-- "1" Heroe
 Nivel "1" *-- "1..*" Bloque
 Nivel "1" *-- "1..*" Tuberia
 Nivel "1" *-- "0..*" Enemigo
+
 Nivel *-- Temporizador
+Temporizador "1" *-- "0..160" Segundo
 
 Mundo "1" o-- "0..4" Nivel
 Mundo "1" *-- "1" Jefe
@@ -106,27 +108,30 @@ Bloque "1" o-- "0..1" PowerUp
 
 class Usuario {
     - Heroe heroe
-    + guardarPartida()
-    + cargarPartida()
+    + guardarPartida(Nivel)
+    + cargarPartida(Nivel)
     + seleccionarHeroe(Heroe)
 }
 
 class Vida{
-    + perder()
-    + ganar()
+    + perder(Vida)
+    + ganar(Vida)
 }
 
 class Personaje{
+    + caminar()
+    + caer()
     - Vida vida
 }
 
 class Heroe{
-    + Recoger(Item)
-    - PowerUp poweUp
+    - Tuberia tuberia
+    Item item
+    - PowerUp poweUpp
     + saltar()
     + agacharse()
     + correr()
-    + recoger(Item item)
+    + recoger(Item)
     + recibirDano()
     + entrarTuberia(Tuberia)
 }
@@ -155,7 +160,7 @@ class Tuberia{
 }
 
 class Moneda{
-    + Puntos : sumarPuntos()
+    + Puntos : sumarPuntos(Monedas)
 }
 
 class PowerUp{
@@ -175,6 +180,7 @@ class Nivel {
 }
 
 class Temporizador {
+    Segundo segundo
     + iniciar()
     + detener()
 }

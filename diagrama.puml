@@ -15,7 +15,7 @@ class Toad
 
 class PowerUp
 class Champinon
-class FlorDeFuego
+class FlorFuego
 class Estrella
 class Moneda
 class Bloque
@@ -86,9 +86,12 @@ Usuario "1" o-- "1" Heroe
 Enemigo "1" *-- "0..1" Vida
 Jefe "1" *-- "0..3" Vida
 Heroe "1" *-- "0..99" Vida
+Heroe "1" o-- "1" Vida
+Enemigo "1" o-- "1" Vida
+Jefe "1" o-- "1" Vida
 Nivel "1" *-- "1" Heroe
 
-Heroe "1" *-- "0..1" PowerUp
+Heroe "1" o-- "0..1" PowerUp
 
 Heroe "1" o-- "0..99" Moneda
 Heroe "1" o-- "1" Tuberia
@@ -108,19 +111,19 @@ Bloque "1" o-- "0..1" PowerUp
 
 class Usuario {
     - Heroe heroe
-    + guardarPartida(Nivel)
-    + cargarPartida(Nivel)
-    + seleccionarHeroe(Heroe)
+    + GuardarPartida(Nivel)
+    + CargarPartida(Nivel)
+    + SeleccionarHeroe(Heroe)
 }
 
 class Vida{
-    + perder(Vida)
-    + ganar(Vida)
+    + Perder(Vida)
+    + Ganar(Vida)
 }
 
 class Personaje{
-    + caminar()
-    + caer()
+    + Caminar()
+    + Caer()
     - Vida vida
 }
 
@@ -137,20 +140,20 @@ class Heroe{
 }
 
 class Enemigo {
-    + morir()
-    + atacar()
-    + cambiarDireccion()
+    + Morir()
+    + Atacar()
+    + CambiarDireccion()
 }
 
 class Jefe {
-    + usarHabilidadEspecial()
-    + enfurecer()
+    + UsarHabilidadEspecial()
+    + Enfurecer()
 }
 
 class Bloque{
     - Item contenido
-    + golpear()
-    + Item : liberar()
+    + Golpear()
+    + Item : 
 }
 
 class Tuberia{
@@ -160,11 +163,12 @@ class Tuberia{
 }
 
 class Moneda{
-    + Puntos : sumarPuntos(Monedas)
+    + Puntos : SumarPuntos(Monedas)
 }
 
 class PowerUp{
     + activar(Heroe)
+    + Liberar() : Item
 }
 
 class Mundo {
@@ -174,15 +178,18 @@ class Mundo {
 }
 
 class Nivel {
-    + iniciarNivel()
-    + finalizarNivel()
-    + pausar()
+    + IniciarNivel()
+    + FinalizarNivel()
+    + Pausar()
+    + IniciarNivel()
+    + AvanzarNivel()
+    + DerrotarJefeMundo()
 }
 
 class Temporizador {
-    Segundo segundo
-    + iniciar()
-    + detener()
+    - Segundo segundo
+    + Iniciar()
+    + Detener()
 }
 
 @enduml

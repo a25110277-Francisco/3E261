@@ -6,11 +6,13 @@ class Heroe
 class Enemigo
 class Jefe
 class Item
+class Partida
+class Puntos
 
 class Mario
 class Luigi
-class PrincesaPeach
-class PrincesaDaisy
+class Peach
+class Daisy
 class Toad
 
 class PowerUp
@@ -20,7 +22,6 @@ class Estrella
 class Moneda
 class Bloque
 class Tuberia
-class Item
 
 class Mundo
 class Vida
@@ -51,11 +52,14 @@ Personaje <|-- Heroe
 Personaje <|-- Jefe
 Item <|-- PowerUp
 Item <|-- Moneda
+PowerUp <|-- Champinon
+PowerUp <|-- FlorFuego
+PowerUp <|-- Estrella
 
 Heroe <|-- Mario
 Heroe <|-- Luigi
-Heroe <|-- PrincesaPeach
-Heroe <|-- PrincesaDaisy
+Heroe <|-- Peach
+Heroe <|-- Daisy
 Heroe <|-- Toad
 
 Jefe <|-- Bowser
@@ -77,119 +81,94 @@ Enemigo <|-- Blooper
 Enemigo <|-- CheepCheep
 Enemigo <|-- BulletBill
 
-PowerUp <|-- Champinon
-PowerUp <|-- FlorDeFuego
-PowerUp <|-- Estrella
-
-Usuario "1" o-- "1" Heroe
+Usuario "1" *-- "1" Heroe
+Usuario "1" o-- "0..3" Partida
 
 Enemigo "1" *-- "0..1" Vida
 Jefe "1" *-- "0..3" Vida
-Heroe "1" *-- "0..99" Vida
-Heroe "1" o-- "1" Vida
-Enemigo "1" o-- "1" Vida
-Jefe "1" o-- "1" Vida
-Nivel "1" *-- "1" Heroe
 
-Heroe "1" o-- "0..1" PowerUp
-
-Heroe "1" o-- "0..99" Moneda
-Heroe "1" o-- "1" Tuberia
 Nivel "1" *-- "1" Heroe
 Nivel "1" *-- "1..*" Bloque
 Nivel "1" *-- "1..*" Tuberia
 Nivel "1" *-- "0..*" Enemigo
+Nivel "1" *-- "1" Temporizador
 
-Nivel *-- Temporizador
 Temporizador "1" *-- "0..160" Segundo
 
 Mundo "1" o-- "0..4" Nivel
 Mundo "1" *-- "1" Jefe
 
+Heroe "1" o-- "1" Item
+Heroe "1" o-- "0..1" PowerUp
+Heroe "1" o-- "0..99" Moneda
+Heroe "1" o-- "0..1" Tuberia
+Heroe "1" o-- "0..*" Enemigo
+Heroe "1" o-- "0..1" Jefe
+Heroe "1" o-- "0..*" Bloque
+Heroe "1" *-- "0..99" Vida
+
 Bloque "1" o-- "1..12" Moneda
 Bloque "1" o-- "0..1" PowerUp
 
+Partida "1" *-- "1" Nivel
+Partida "1" *-- "0..*" Puntos
+
 class Usuario {
     - Heroe heroe
-    + GuardarPartida(Nivel)
-    + CargarPartida(Nivel)
-    + SeleccionarHeroe(Heroe)
 }
 
-class Vida{
-    + Perder(Vida)
-    + Ganar(Vida)
+class Partida{
+    - Nivel nivel
+    + Guardar(Nivel)
+    + Cargar() : Nivel
+    + Pausar()
 }
 
-class Personaje{
-    + Caminar()
-    + Caer()
-    - Vida vida
+class Heroe {
+    + Saltar()
+    + Agachar()
+    + Correr()
+    + Recoger(Item)
+    + RecibirDano()
+    + EntrarTuberia(Tuberia)
 }
-
-class Heroe{
-    - Tuberia tuberia
-    + Item item
-    - PowerUp poweUp
-    + saltar()
-    + agacharse()
-    + correr()
-    + recoger(Item)
-    + recibirDano()
-    + entrarTuberia(Tuberia)
-}
-
-class Enemigo {
+class Enemigo{
     + Morir()
-    + Atacar()
-    + CambiarDireccion()
+    + RecibirDano(Heroe)
 }
-
-class Jefe {
-    + UsarHabilidadEspecial()
+class Jefe{
+    + RecibirDano(Heroe)
+    + Activar()
     + Enfurecer()
 }
 
 class Bloque{
-    - Item contenido
-    + Golpear()
-    + Item : 
+    + Golpear(Heroe)
 }
 
-class Tuberia{
-    + Nivel : Ingresar(Heroe)
-    - Nivel entrada
-    - Nivel salida
+class Tuberia {
+    + Ingresar(Heroe) : Nivel
 }
 
-class Moneda{
-    + Puntos : SumarPuntos(Monedas)
+class Moneda {
+    + SumarPuntos(Moneda) : Puntos
 }
 
-class PowerUp{
-    + activar(Heroe)
+class PowerUp {
+    + Activar(Heroe)
     + Liberar() : Item
-}
-
-class Mundo {
-    + iniciarNivel()
-    + avanzarNivel()
-    + derrotarJefeMundo()
 }
 
 class Nivel {
     + IniciarNivel()
     + FinalizarNivel()
     + Pausar()
-    + IniciarNivel()
     + AvanzarNivel()
     + DerrotarJefeMundo()
 }
 
 class Temporizador {
     - Segundo segundo
-    + Iniciar()
-    + Detener()
 }
 
 @enduml

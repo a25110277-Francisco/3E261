@@ -7,7 +7,7 @@ class Enemigo
 class Jefe
 class Item
 class Partida
-class Puntos
+class Punto
 
 class Mario
 class Luigi
@@ -95,7 +95,7 @@ Nivel "1" *-- "1" Temporizador
 
 Temporizador "1" *-- "0..160" Segundo
 
-Mundo "1" o-- "0..4" Nivel
+Mundo "1" *-- "1..4" Nivel
 Mundo "1" *-- "1" Jefe
 
 Heroe "1" o-- "1" Item
@@ -111,7 +111,7 @@ Bloque "1" o-- "1..12" Moneda
 Bloque "1" o-- "0..1" PowerUp
 
 Partida "1" *-- "1" Nivel
-Partida "1" *-- "0..*" Puntos
+Partida "1" *-- "0..*" Punto
 
 class Usuario {
     - Heroe heroe
@@ -119,12 +119,14 @@ class Usuario {
 
 class Partida{
     - Nivel nivel
+    - Punto punto
     + Guardar(Nivel)
     + Cargar() : Nivel
     + Pausar()
 }
 
 class Heroe {
+    - Vida vida
     + Saltar()
     + Agachar()
     + Correr()
@@ -133,17 +135,19 @@ class Heroe {
     + EntrarTuberia(Tuberia)
 }
 class Enemigo{
+    - Vida vida
     + Morir()
     + RecibirDano(Heroe)
 }
 class Jefe{
+    - Vida vida
     + RecibirDano(Heroe)
     + Activar()
     + Enfurecer()
 }
 
 class Bloque{
-    + Golpear(Heroe)
+    + Golpear(Heroe) : Item
 }
 
 class Tuberia {
